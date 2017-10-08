@@ -1,0 +1,63 @@
+// ==========================================================
+/*
+Generates an @font-face declaration. Accepts arguments for weight, style, usage with the Rails Asset Pipeline and file formats.
+
+@include font-face("source-sans-pro", "/fonts/source-sans-pro/source-sans-pro-regular");
+@include font-face("source-sans-pro", "/fonts/source-sans-pro/source-sans-pro-bold", bold);
+@include font-face("source-sans-pro", "/fonts/source-sans-pro/source-sans-pro-italic", normal, italic);
+The $file-formats argument allows you specify your font’s file formats (the default is eot woff2 woff ttf svg:
+
+@include font-face("source-sans-pro", "/fonts/source-sans-pro/source-sans-pro-regular", $file-formats: eot woff2 woff);
+You can also use the Rails Asset Pipeline (place the fonts in app/assets/fonts/:
+
+@include font-face("source-sans-pro", "source-sans-pro/source-sans-pro-regular", normal, $asset-pipeline: true, $file-formats: eot woff ttf);
+*/
+// ==========================================================
+@mixin add-font-face(
+    $font-family,
+	$file-path,
+	$weight: normal,
+	$style: normal,
+	$asset-pipeline: $asset-pipeline,
+	$file-formats: woff woff2 ttf eot svg
+) {
+
+    $font-url-prefix: font-url-prefixer($asset-pipeline);
+
+    @font-face {
+        font-family: $font-family;
+        font-style: $style;
+        font-weight: $weight;
+
+        src: font-source-declaration(
+                $font-family,
+                $file-path,
+                $asset-pipeline,
+                $file-formats,
+                $font-url-prefix
+        );
+    }
+}
+
+@mixin font-face($families, $family, $file-formats,  $path: '../fonts/') {
+    @for $i from 1 through length(map_get($families, $family)) {
+        $fontWeight: nth(map_get($families, $family), $i);
+        $file-path: '#{$path}#{to-lower-case($family)}_#{$fontWeight}';
+        $style: normal;
+        $split: split($fontWeight, '_italic');
+
+        @if length($split) == 2 and nth($split, 2) == 'italic' {
+            $style: italic;
+            $fontWeight: nth($split, 1);
+            $file-path: '#{$path}#{to-lower-case($family)}_#{$fontWeight}_#{$style}';
+        }
+
+        @include add-font-face(
+            $font-family: $family,
+            $file-path: $file-path,
+            $weight: unquote($fontWeight),
+            $style: $style,
+            $file-formats: $file-formats
+        );
+    }
+}

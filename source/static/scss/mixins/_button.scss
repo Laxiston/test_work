@@ -1,0 +1,39 @@
+@mixin btn($value) {
+    @each $val in $value {
+        $b: map_get($btn, $val);
+
+        %btn-#{$val} {
+            @each $key, $prop in map_remove($b, 'hover', 'active', 'disabled') {
+                #{$key}: $prop;
+            }
+
+			@include hover {
+                text-decoration: none;
+                @each $key, $prop in map_get($b, 'hover') {
+                    #{$key}: $prop;
+                }
+            }
+
+            @include active {
+                @each $key, $prop in map_get($b, 'active') {
+                    #{$key}: $prop;
+                }
+            }
+
+            &.disabled:hover,
+            &.disabled:focus,
+            &.disabled:active,
+            &.disabled.active,
+            &[disabled],
+            &[disabled]:hover,
+            &[disabled]:focus,
+            &[disabled]:active,
+            &[disabled].active {
+                @each $key, $prop in map_get($b, 'disabled') {
+                    #{$key}: $prop !important;
+                }
+                cursor: default;
+            }
+        }
+    }
+}

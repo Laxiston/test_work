@@ -1,0 +1,5 @@
+@charset "UTF-8";
+
+@function is-map($var) {
+    @return type-of($var) == 'map';
+}

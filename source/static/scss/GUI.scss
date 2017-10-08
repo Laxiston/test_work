@@ -1,0 +1,467 @@
+%btn {
+    $lineHeightCalculate: map_get($btn, 'height') - (nth(map_get($btn, 'paddings'), 1) + nth(map_get($btn, 'border'), 1)) * 2;
+    $lineHeight: if(map_has_key($btn, 'line-height'), map_get($btn, 'line-height'), $lineHeightCalculate);
+    @extend %galano;
+    background: map_get($btn, 'background');
+    border: map_get($btn, 'border');
+    border-radius: 10px;
+    box-shadow: map_get($btn, 'box-shadow');
+    color: map_get($btn, 'color');
+    cursor: pointer;
+    display: inline-block;
+    font-size: map_get(map_get($btn, 'font'), 'size');
+    height: map_get($btn, 'height');
+    line-height: $lineHeight;
+    outline: none;
+    padding: map_get($btn, 'paddings');
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: map_get($btn, 'transition');
+    vertical-align: middle;
+
+    @include max(xs) {
+        width: 100%;
+    }
+}
+
+textarea, select,
+#{$all-text-inputs} {
+    background-clip: padding-box;
+    @include size(100% map_get($input, 'height'));
+    border-radius: 3px;
+    box-shadow: map_get($input, 'box-shadow');
+    display: block;
+    font: map_get(map_get($input, 'font'), 'size') map_get(map_get($input, 'font'), 'family');
+    line-height: map_get($input, 'height') - (nth(map_get($input, 'paddings'), 1) + nth(map_get($input, 'border'), 1)) * 2;
+    padding: map_get($input, 'paddings');
+    transition: map_get($input, 'transition');
+    appearance: none;
+
+    &[disabled],
+    &[disabled]:hover,
+    &[disabled]:focus,
+    &[disabled]:active,
+    &[disabled].active {
+        background: #f5f5f5 !important;
+        border-color: #d9d9d9 !important;
+        cursor: default;
+        opacity: 1;
+        color: #b3b3b3 !important;
+    }
+}
+
+textarea {
+    line-height: normal;
+    min-height: initial;
+    overflow-y: hidden;
+    resize: none;
+}
+
+// ==========================================================
+// BUTTONS
+// ==========================================================
+@include btn(('default', 'primary'));
+
+@include b('b-btn-holder') {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    @include pie;
+
+    @include e('btn') {
+        @extend %btn;
+
+        @each $btn-style in ('default', 'primary') {
+            @include m($btn-style) {
+                @extend %btn-#{$btn-style};
+            }
+        }
+    }
+}
+
+// ==========================================================
+// CHECKBOX, RADIO
+// ==========================================================
+@include b('b-switch') {
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 18px;
+    position: relative;
+
+    label {
+        color: map_get($color, 'black');
+        cursor: pointer;
+        display: inline-block;
+        font-size: 15px;
+        line-height: 20px;
+        margin-bottom: 0;
+        max-width: 100%;
+        padding-left: 10px;
+
+        b, i {
+            display: inline-block;
+        }
+
+        &:before, &:after {
+            position: absolute;
+            transition: 300ms;
+            border-radius: 3px;
+            @include size(18px);
+        }
+
+        &:before {
+            border: 1px solid #00747f;
+            content: '';
+            top: 3px;
+            left: 0;
+            background: #fff;
+        }
+
+        &:after {
+            color: #fff;
+            content: 'checked';
+            font-family: 'MaterialIcons', sans-serif;
+            left: 1px;
+            top: 1px;
+            opacity: 0;
+            font-size: 15px;
+            z-index: 1;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: 'liga';
+            -webkit-font-feature-settings: 'liga';
+        }
+    }
+
+    input {
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+
+        &:checked {
+            + label {
+                &:before {
+                    border-width: 9px;
+                }
+
+                &:after {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    @include first {
+        margin-top: 0;
+    }
+
+    @include last {
+        margin-bottom: 30px;
+    }
+
+    @include m('lg') {
+        label {
+            font-size: 18px;
+        }
+    }
+}
+
+// ==========================================================
+// SELECT
+// ==========================================================
+@include b('b-select') {
+    display: block;
+    margin-bottom: 20px;
+    position: relative;
+
+    @include e('label') {
+        $offset1: (map_get($input, 'height') - map_get(map_get($input, 'font'), 'size')) / 2 + map_get(map_get($input, 'font'), 'size');
+        border-radius: 3px;
+        bottom: 100%;
+        color: #b1b1b1;
+        display: inline-block;
+        font: map_get(map_get($input, 'font'), 'size') map_get(map_get($input, 'font'), 'family');
+        line-height: map_get(map_get($input, 'font'), 'size');
+        margin-bottom: 0;
+        overflow: hidden;
+        pointer-events: none;
+        position: absolute;
+        right: auto;
+        text-overflow: ellipsis;
+        transform-origin: left top;
+        transition: 300ms ease;
+        white-space: nowrap;
+        background: transparent;
+        left: 21px;
+        padding: 0;
+        transform: translate3d(0, $offset1, 0);
+        z-index: 1;
+
+        @include at('open') {
+            background: #fff;
+            color: #007b81;
+            font-size: 15px;
+            left: 14px;
+            padding: 0 7px;
+            transform: translate3d(0, 8px, 0);
+        }
+
+        @include at('focus') {
+            color: #007b81;
+        }
+    }
+
+    .select2-container {
+        display: block;
+        width: 100%;
+
+        .select2-selection--single, .select2-selection--multiple {
+            border: map_get($input, 'border');
+            border-radius: 3px;
+            box-shadow: map_get($input, 'box-shadow');
+            height: auto;
+            transition: map_get($input, 'transition');
+        }
+
+        .select2-selection--multiple {
+            input {
+                height: auto;
+                margin: 0;
+            }
+
+            .select2-selection__rendered {
+
+            }
+        }
+
+        .select2-selection__rendered {
+            background-clip: padding-box;
+            @include size(100% auto);
+            color: map_get($input, 'color');
+            display: block;
+            font: map_get(map_get($input, 'font'), 'size') map_get(map_get($input, 'font'), 'family');
+            line-height: map_get($input, 'height') - (nth(map_get($input, 'paddings'), 1) + nth(map_get($input, 'border'), 1)) * 2;
+            min-height: map_get($input, 'height') - (nth(map_get($input, 'border'), 1) * 2);
+            padding: map_get($input, 'paddings');
+        }
+
+        .select2-selection__choice {
+            border-radius: 15px;
+            border: none;
+            background: #ecf6f9;
+            font-size: 15px;
+            position: relative;
+            padding: 0 24px 0 10px;
+            color: #4c4c4c;
+            overflow: hidden;
+
+            &__remove {
+                text-indent: -9999px;
+                position: absolute;
+                top: 0;
+                right: 0;
+                display:block;
+                margin: 0;
+                color: #c0d6dc;
+                @include size(24px 100%);
+
+                &:after {
+                    @extend .b-icon;
+                    content: 'close';
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    color: currentColor;
+                    margin-top: -8px;
+                    margin-left: -8px;
+                    font-size: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-indent: 0 !important;
+                }
+
+                &:hover {
+                    color: map_get($color, 'black');
+                }
+            }
+        }
+
+        .select2-selection__placeholder {
+            color: #828289;
+            display: inline-block;
+            line-height: 1;
+            margin-bottom: 0;
+            margin-top: 3px;
+            overflow: hidden;
+            padding-left: 1px;
+            padding-right: 0;
+            pointer-events: none;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .select2-selection__arrow {
+            display: block;
+            @include size(24px);
+            margin-top: -12px;
+            top: 50%;
+
+            b {
+                border: none;
+                bottom: auto;
+                @include size(auto);
+                direction: ltr;
+                display: block;
+                font: normal normal 24px 'MaterialIcons';
+                left: auto;
+                letter-spacing: normal;
+                line-height: 1;
+                margin: auto;
+                position: relative;
+                right: auto;
+                text-transform: none;
+                top: auto;
+                white-space: nowrap;
+                word-wrap: normal;
+                &:after {
+                    content: 'keyboard_arrow_down';
+                }
+                -webkit-font-smoothing: antialiased;
+                text-rendering: optimizeLegibility;
+                -moz-osx-font-smoothing: grayscale;
+                font-feature-settings: 'liga';
+
+                -webkit-font-feature-settings: 'liga';
+            }
+        }
+
+        &--open, &--focus {
+            .select2-selection {
+                &--single, &--multiple {
+                    border-color: #007b81;
+                }
+            }
+        }
+
+        &--open {
+            .select2-selection {
+                &__arrow {
+                    b:after {
+                        content: 'keyboard_arrow_up';
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ==========================================================
+// FORM
+// ==========================================================
+@include b('b-form') {
+    @include e('group') {
+        @include pie;
+    }
+
+    @include e('help-text') {
+        color: map_get($color, 'black');
+        font-size: 15px;
+        line-height: 1.47;
+        margin-top: 30px;
+
+        @include m('center') {
+            text-align: center;
+        }
+    }
+
+    @include b('b-btn-holder') {
+        margin-top: 15px;
+    }
+}
+
+@include b('b-input-container') {
+    display: block;
+    margin-bottom: 30px;
+    position: relative;
+
+    @include e('label') {
+        background: #fff;
+        border-radius: 3px;
+        bottom: 100%;
+        color: #b1b1b1;
+        display: inline-block;
+        font: 15px map_get(map_get($input, 'font'), 'family');
+        left: 14px;
+        line-height: map_get(map_get($input, 'font'), 'size');
+        margin-bottom: 0;
+        overflow: hidden;
+        padding: 0 7px;
+        pointer-events: none;
+        position: absolute;
+        right: auto;
+        text-overflow: ellipsis;
+        transform: translate3d(0, 8px, 0);
+        transform-origin: left top;
+        transition: 300ms ease;
+        white-space: nowrap;
+        z-index: 1;
+    }
+
+    @include e('control') {
+        border: map_get($input, 'border');
+        color: map_get($input, 'color');
+
+        @include m('empty') {
+            @include with('label') {
+                $offset1: (map_get($input, 'height') - map_get(map_get($input, 'font'), 'size')) / 2 + map_get(map_get($input, 'font'), 'size');
+                background: transparent;
+                font-size: map_get(map_get($input, 'font'), 'size');
+                left: 21px;
+                padding: 0;
+                transform: translate3d(0, $offset1, 0);
+            }
+        }
+
+        @include focus {
+            border-color: #007b81;
+
+            @include with('label') {
+                background: #fff;
+                color: #007b81;
+                font-size: 15px;
+                left: 14px;
+                padding: 0 7px;
+                transform: translate3d(0, 8px, 0);
+            }
+        }
+
+        &[disabled] {
+            & + label {
+                background: #f5f5f5;
+            }
+        }
+    }
+
+    @include b('b-icon') {
+        position: absolute;
+        color: #bcd1d7;
+        cursor: pointer;
+        right: 12px;
+        top: 50%;
+        margin-top: -12px;
+        transition: 300ms $ease-in-out-cubic;
+
+        @include hover {
+            color: #00747f;
+        }
+
+        & ~ .b-input-container__control {
+            padding-right: 48px;
+        }
+    }
+}

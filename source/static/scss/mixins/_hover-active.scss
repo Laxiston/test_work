@@ -1,0 +1,9 @@
+@mixin hover-active {
+	.no-js &:hover, // the fallback
+	.no-js &:focus,
+	.js.no-touchevents &:hover, // enhanced for no-touch
+	.js.no-touchevents &:focus,
+	.js.touchevents &:active { // relay same styles to active for touch devices
+		@content;
+	}
+}

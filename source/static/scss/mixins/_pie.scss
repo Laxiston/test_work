@@ -1,0 +1,7 @@
+@mixin pie {
+    &::after {
+        display: block;
+        clear: both;
+        content: '';
+    }
+}

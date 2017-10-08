@@ -1,0 +1,333 @@
+// Container
+[#{map_get($grid-classes, 'container')}] {
+    @include container;
+
+    @include attr('fixed') {
+        @include container-max-widths;
+    }
+}
+
+// Row
+[#{map_get($grid-classes, 'row')}] {
+    @if $global-flexbox {
+        @include make-flex-row;
+    } @else {
+        @include make-row;
+    }
+
+    @include attr('collapse') {
+        margin-right: 0;
+        margin-left: 0;
+
+        & > [#{map_get($grid-classes, 'col')}] {
+            @include make-col-collapse;
+
+            & > [#{map_get($grid-classes, 'row')}] {
+                margin-right: 0;
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+// Column
+[#{map_get($grid-classes, 'col')}] {
+    @if $global-flexbox {
+        @include make-flex-column;
+    } @else {
+        @include make-col;
+    }
+}
+
+// Column row
+// The double .row class is needed to bump up the specificity
+[#{map_get($grid-classes, 'col')}][#{map_get($grid-classes, 'row')}][#{map_get($grid-classes, 'row')}] {
+    float: none;
+
+    @if $global-flexbox {
+        display: block;
+    }
+}
+
+// To properly nest a column row, padding and margin is removed
+[#{map_get($grid-classes, 'row')}] [#{map_get($grid-classes, 'col')}][#{map_get($grid-classes, 'row')}][#{map_get($grid-classes, 'row')}] {
+    margin-right: 0;
+    margin-left: 0;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+@include each-breakpoint {
+    @for $i from 1 through $grid-columns-count {
+        // Sizing (percentage)
+        [#{map_get($grid-classes, 'col')}] {
+            @include attr('#{$-zf-size}:#{$i}') {
+                @if $global-flexbox {
+                    flex: make-flex-column($i);
+                    max-width: make-column($i);
+                } @else {
+                    @include make-col-size($i);
+                }
+            }
+        }
+
+        @if not $global-flexbox {
+            // Source ordering
+            @if $i < $grid-columns-count {
+                [#{map_get($grid-classes, 'push')}] {
+                    @include attr('#{$-zf-size}:#{$i}') {
+                        @include make-col-pos($i);
+                    }
+                }
+
+                [#{map_get($grid-classes, 'pull')}] {
+                    @include attr('#{$-zf-size}:#{$i}') {
+                        @include make-col-pos(-$i);
+                    }
+                }
+            }
+        }
+
+        // Offsets
+        $o: $i - 1;
+        [#{map_get($grid-classes, 'offset')}] {
+            @include attr('#{$-zf-size}:#{$o}') {
+                @if $global-flexbox {
+                    @include make-column-offset($o);
+                } @else {
+                    @include make-col-off($o);
+                }
+            }
+        }
+    }
+
+    // Block grid
+    @for $i from 1 through $grid-block-max {
+        [#{map_get($grid-classes, 'up')}] {
+            @include attr('#{$-zf-size}:#{$i}') {
+                @if $global-flexbox {
+                    @include make-flex-layout($i, '[#{map_get($grid-classes, 'col')}]');
+                } @else {
+                    @include make-layout($i, '[#{map_get($grid-classes, 'col')}]');
+                }
+            }
+        }
+    }
+
+    @if $global-flexbox {
+        @if $-zf-size != $grid-zero-breakpoint {
+            // Sizing (expand)
+            @include breakpoint($-zf-size) {
+                [#{map_get($grid-classes, 'expand')}] {
+                    @include attr('#{$-zf-size}') {
+                        flex: make-flex-column();
+                    }
+                }
+            }
+
+            // Auto-stacking/unstacking
+            @at-root (without: media) {
+                [#{map_get($grid-classes, 'row')}] {
+                    &[#{map_get($grid-classes, 'unstack')}] {
+                        @include attr('#{$-zf-size}') {
+                            & > [#{map_get($grid-classes, 'col')}] {
+                                flex: make-flex-column(100%);
+
+                                @include breakpoint($-zf-size) {
+                                    flex: make-flex-column();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Responsive collapsing
+    [#{map_get($grid-classes, 'collapse')}] {
+        @include attr('#{$-zf-size}') {
+            & > [#{map_get($grid-classes, 'col')}] {
+                @include make-col-collapse;
+            }
+
+            [#{map_get($grid-classes, 'row')}] {
+                margin-right: 0;
+                margin-left: 0;
+            }
+        }
+    }
+
+    @if not $global-flexbox {
+        [#{map_get($grid-classes, 'row')}] {
+            @include attr('expanded') {
+                [#{map_get($grid-classes, 'collapse')}] {
+                    @include attr('#{$-zf-size}') {
+                        [#{map_get($grid-classes, 'row')}] {
+                            margin-right: 0;
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Positioning
+        [#{map_get($grid-classes, 'position')}] {
+            @include attr('#{$-zf-size}:center') {
+                @include make-col-pos(center);
+            }
+        }
+
+        // Gutter adjustment
+        [#{map_get($grid-classes, 'position')}~='#{$-zf-size}:uncenter'],
+        [#{map_get($grid-classes, 'push')}~='#{$-zf-size}:0'],
+        [#{map_get($grid-classes, 'pull')}~='#{$-zf-size}:0'] {
+            @include make-col-unpos;
+        }
+    }
+
+    [#{map_get($grid-classes, 'uncollapse')}] {
+        @include attr('#{$-zf-size}') {
+            & > [#{map_get($grid-classes, 'col')}] {
+                @include make-col-gutter($-zf-size);
+            }
+        }
+    }
+}
+
+@if $global-flexbox {
+    // Sizing (shrink)
+    [#{map_get($grid-classes, 'shrink')}] {
+        flex: make-flex-column(shrink);
+        max-width: 100%;
+    }
+}
+
+// Block grid columns
+[#{map_get($grid-classes, 'col')}] {
+    @include attr('block') {
+        @include make-column-margin;
+    }
+}
+
+[#{map_get($grid-classes, 'cols')}] {
+    // sass-lint:disable-block placeholder-in-extend
+    @extend [#{map_get($grid-classes, 'col')}];
+}
+
+@if $global-flexbox {
+    [#{map_get($grid-classes, 'flex')}] {
+        @include attr('container') {
+            @include flex;
+        }
+
+        @include attr('child:auto') {
+            flex: 1 1 auto;
+        }
+
+        @include attr('child:grow') {
+            flex: 1 0 auto;
+        }
+
+        @include attr('child:shrink') {
+            flex: 0 1 auto;
+        }
+
+        @each $dir, $prop in $-zf-flex-direction {
+            @include attr('dir:#{$dir}') {
+                @include flex-direction($prop);
+            }
+        }
+
+        @if ($flexbox-responsive-breakpoints) {
+            // Loop through Responsive Breakpoints
+            @each $size in $grid-breakpoint-classes {
+                @include breakpoint($size) {
+                    @if $size != $grid-zero-breakpoint {
+                        @include attr('container:#{$size}') {
+                            @include flex;
+                        }
+
+                        @include attr('child:auto:#{$size}') {
+                            flex: 1 1 auto;
+                        }
+
+                        @include attr('child:grow:#{$size}') {
+                            flex: 1 0 auto;
+                        }
+
+                        @include attr('child:shrink:#{$size}') {
+                            flex: 0 1 auto;
+                        }
+
+                        @each $dir, $prop in $-zf-flex-direction {
+                            @include attr('dir:#{$dir}:#{$size}') {
+                                @include flex-direction($prop);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Horizontal alignment using justify-content
+        @each $hdir, $prop in map-remove($-zf-flex-justify, 'left') {
+            @include attr('align:#{$hdir}') {
+                @include flex-align($x: $hdir);
+            }
+        }
+
+        // Vertical alignment using align-items and align-self
+        @each $vdir, $prop in $-zf-flex-align {
+            @include attr('align:#{$vdir}') {
+                @include flex-align($y: $vdir);
+            }
+
+            @include attr('align-self:#{$vdir}') {
+                @include flex-align-self($y: $vdir);
+            }
+        }
+
+        // Central alignment of content
+        @include attr('align:center-middle') {
+            @include flex-align($x: center, $y: middle);
+            align-content: center;
+        }
+
+        // Source ordering
+        @include each-breakpoint {
+            @for $i from 1 through $flex-source-ordering-count {
+                @include attr('order:#{$-zf-size}:#{$i}') {
+                    @include flex-order($i);
+                }
+            }
+        }
+    }
+}
+
+// Responsive visibility classes
+@each $size in $grid-breakpoint-classes {
+    @if $size != $grid-zero-breakpoint {
+        [#{map_get($grid-classes, 'hide')}] {
+            @include attr('#{$size}:up') {
+                @include hide-for($size);
+            }
+
+            @include attr('#{$size}:down') {
+                @include show-for($size);
+            }
+
+            @include attr('#{$size}:only') {
+                @include hide-for-only($size);
+            }
+        }
+
+        [#{map_get($grid-classes, 'show')}] {
+            @include attr('#{$size}:only') {
+                @include show-for-only($size);
+            }
+        }
+    }
+}
+

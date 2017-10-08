@@ -1,0 +1,15 @@
+// Base
+@import './global';
+@import './fonts';
+
+@import './plugins/normalize';
+//@import './vars';
+
+// Styles for animations
+@import './animations';
+
+// Common styles for current project
+@import './common';
+
+// Styles for UI-elements
+@import './GUI';

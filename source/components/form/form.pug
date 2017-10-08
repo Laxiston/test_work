@@ -1,0 +1,164 @@
+//- Created by Labtec on 23.06.2017.
+
+include ../plan-card/plan-card
+
+mixin form(data)
+    -
+        var data = data || {};
+        var plans = [{
+            title: 'Basic',
+            subtitle: 'Introductory listing',
+            price: 'Free',
+            description: 'No active enquiry generation',
+            privileges: [
+                'Appear in our search results',
+                'Indexed by major search engines',
+                'No active enquiry generation'
+            ]
+        }, {
+            title: 'Lite',
+            titleMod: 'primary',
+            subtitle: 'Detailed profile with enquiry generation',
+            price: '£ 29/month',
+            priceMod: 'primary',
+            description: 'Plus £30 for each enquiry',
+            privileges: [
+                'Appear more in search results',
+                'Indexed by major search engines',
+                'See profile performance statistics',
+                'Clients can email you',
+                'Accept only the enquiries you want'
+            ],
+            checked: true
+        }, {
+            title: 'Plus',
+            subtitle: 'Premium profile with additional services',
+            price: '£ 29/month',
+            priceMod: 'primary',
+            description: 'Plus £30 for each enquiry',
+            privileges: [
+                'All the benefits of Lite included',
+                'Full contact details',
+                'Manage all calls with Call Analytics',
+                'Exclusive media opportunities through the Bluebook',
+                'Your first enquiry each month is free'
+            ]
+        }];
+
+    +b.FORM.b-form(
+        id=`${data.name || 'default'}Form`,
+        name=`${data.name || 'default'}Form`,
+        novalidate
+    )
+        div(data-v-row='')
+            div(data-v-col='xs:24 md:22 lg:20', data-v-offset='md:1 lg:2')
+                +e.title Choose your plan
+            +e.plan-wrapper(data-v-col='xs:24 md:22 lg:20', data-v-offset='md:1 lg:2', data-v-collapse='xs sm md lg')
+                div(data-v-row='', data-v-collapse='xs sm md lg')
+                    each plan, index in plans
+                        +plan-card(plan, index)(data-v-col='xs:24', data-v-expand='sm')
+        div(data-v-row='')
+            +e.group(data-v-col='xs:24 md:22 lg:20', data-v-offset='md:1 lg:2')
+                +e.title Your profile details
+            +e.group(data-v-col='xs:24 sm:12 md:11 lg:10', data-v-offset='md:1 lg:2')
+                +b.b-input-container_floating(data-plugin='material')
+                    +e.INPUT.control_label(
+                        type='text',
+                        name='company',
+                        placeholder='Company name'
+                    )
+
+            +e.group(data-v-col='xs:24 sm:12 md:11 lg:10')
+                +b.b-input-container_floating(data-plugin='material')
+                    +icon('help_outline')(
+                        data-toggle='tooltip',
+                        title='The FCA regulates and supervises the conduct of more than 50,000 firms in the UK that provide financial products and services to both UK and international customers.'
+                    )
+                    +e.INPUT.control_label(
+                        type='text',
+                        name='fsaReg',
+                        data-plugin='mask',
+                        data-alias='decimal',
+                        placeholder='Company FCA number'
+                    )
+        div(data-v-row='')
+            +e.group(data-v-col='xs:24 md:22 lg:20', data-v-offset='md:1 lg:2')
+                +b.b-select
+                    +e.LABEL.label Advice areas
+                    select(data-plugin='select2', multiple='', name='specialities[]')
+                        option(value='Socially responsible investments') Socially responsible investments
+                        option(value='Traded endowment policies') Traded endowment policies
+                        option(value='Investment trusts') Investment trusts
+                        option(value='Pensions & retirement planning') Pensions & retirement planning
+                        option(value='Pension consolidation') Pension consolidation
+                        option(value='Auto enrolment') Auto enrolment
+
+        div(data-v-row='')
+            +e.group(data-v-col='xs:24 md:22 lg:20', data-v-offset='md:1 lg:2')
+                +e.title Contact person
+            +e.group(data-v-col='xs:24 md:22 lg:20', data-v-offset='md:1 lg:2', data-v-flex='container align:center')
+                +b.b-switch_lg
+                    input#forAdviser(type='checkbox')
+                    label(for='forAdviser'): b Same as adviser above
+            +e.group(data-v-col='xs:24 sm:12 md:11 lg:10', data-v-offset='md:1 lg:2', data-adviser='')
+                +b.b-input-container_floating(data-plugin='material')
+                    +e.INPUT.control_label(
+                        type='text',
+                        name='firstname',
+                        placeholder='First name'
+                    )
+
+            +e.group(data-v-col='xs:24 sm:12 md:11 lg:10', data-adviser='')
+                +b.b-input-container_floating(data-plugin='material')
+                    +e.INPUT.control_label(
+                        type='text',
+                        name='surname',
+                        placeholder='Last name'
+                    )
+
+            +e.group(data-v-col='xs:24 sm:12 md:11 lg:10', data-v-offset='md:1 lg:2')
+                +b.b-input-container_floating(data-plugin='material')
+                    +icon('help_outline')(
+                        data-toggle='tooltip',
+                        title='All enquiries and communications related to your profile will be sent to this email address'
+                    )
+                    +e.INPUT.control_label(
+                        name='email',
+                        data-plugin='mask',
+                        data-alias='email',
+                        placeholder='Contact email'
+                    )
+
+        div(data-v-row='')
+            +e.group(data-v-col='xs:24 md:22 lg:20', data-v-offset='md:1 lg:2')
+                +e.title Your password
+            +e.group(data-v-col='xs:24 sm:12 md:11 lg:10', data-v-offset='md:1 lg:2')
+                +b.b-input-container_floating(data-plugin='material')
+                    +e.INPUT.control_label(
+                        type='password',
+                        name='password',
+                        placeholder='Password'
+                    )
+
+            +e.group(data-v-col='xs:24 sm:12 md:11 lg:10')
+                +b.b-input-container_floating(data-plugin='material')
+                    +e.INPUT.control_label(
+                        type='password',
+                        name='confirmPassword',
+                        placeholder='Confirm password'
+                    )
+
+        div(data-v-row='')
+            +e.group(data-v-col='xs:24 md:22 lg:20', data-v-offset='md:1 lg:2')
+                +b.b-switch
+                    input#forStatistics(type='checkbox', name='branchtags[]')
+                    label(for='forStatistics') Tick if you want to get tips on on how to improve your profile visibility and some real statistics
+                +b.b-switch
+                    input#forSubscribe(type='checkbox', name='branchtags[]')
+                    label(for='forSubscribe') Tick if you want to get something even more useful
+
+        div(data-v-row='')
+            +e.group(data-v-col='xs:24 md:22 lg:20', data-v-offset='md:1 lg:2')
+                +b.b-btn-holder(data-v-flex='align:center')
+                    +e.BUTTON.btn_primary(type='submit') Complete signup #[span(data-v-hide='sm:down') and proceed to payment]
+                +e.help-text_center By clicking "Complete signup and proceed to payment" I agree to Unbiased's Terms of Service

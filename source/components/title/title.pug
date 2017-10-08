@@ -1,0 +1,6 @@
+//- Created by Labtec on 23.06.2017.
+mixin title(data)
+    +b.b-title&attributes(attributes)
+        +e.main= data.main
+        if data.description
+            +e.description= data.description

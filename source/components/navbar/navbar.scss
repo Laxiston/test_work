@@ -1,0 +1,95 @@
+@include b('b-navbar') {
+
+    @include max(sm) {
+        height: $header-height-xs;
+    }
+
+    @include e('header') {
+        @include max(sm) {
+            height: $header-height-xs;
+        }
+    }
+
+    @include e('toggle') {
+        display: block;
+        position: relative;
+        color: $white;
+        margin-right: 15px;
+        @include size(26px 22px);
+
+        span {
+            display: block;
+            top: 50%;
+            margin-top: -1px;
+
+            &:before, &:after {
+                content: '';
+                display: block;
+            }
+
+            &, &:before, &:after {
+                position: absolute;
+                @include size(26px 2px);
+                background: $white;
+                transition: {
+                    property: transform;
+                    duration: 350ms;
+                    timing-function: ease;
+                }
+            ;
+            }
+
+            &:before {
+                top: -10px;
+                transition: top 350ms ease-in 500ms, opacity 350ms ease-in;
+            }
+
+            &:after {
+                bottom: -10px;
+                transition: bottom 350ms ease-in 500ms, transform 470ms $ease-in-out-cubic;
+            }
+        }
+
+        @include state('active') {
+            span {
+                transition: {
+                    delay: 370ms;
+                    timing-function: $ease-in-out-cubic;
+                }
+            ;
+                transform: rotate(225deg);
+
+                &:before {
+                    top: 0;
+                    transition: top 350ms ease-out, opacity 350ms ease-out 370ms;
+                    opacity: 0;
+                }
+
+                &:after {
+                    bottom: 0;
+                    transition: bottom 350ms ease-out, transform 470ms $ease-in-out-cubic 370ms;
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+    }
+
+    @include e('collapse') {
+        background: $black;
+
+        & > .scroll-content {
+            @each $bp, $value in map_remove($header-height, 'xs', 'md', 'lg') {
+                @include max($bp) {
+                    height: calc(100vh - #{$value});
+                }
+            }
+        }
+
+        @include min(md) {
+            display: block !important;
+            visibility: visible !important;
+            height: auto !important;
+            overflow: visible !important;
+        }
+    }
+}

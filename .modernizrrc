@@ -1,0 +1,24 @@
+{
+    "minify": true,
+    "options": [
+        "html5shiv",
+        "setClasses"
+    ],
+    "feature-detects": [
+        "test/css/animations",
+        "test/css/calc",
+        "test/css/filters",
+        "test/css/flexbox",
+        "test/css/flexboxlegacy",
+        "test/css/flexboxtweener",
+        "test/css/flexwrap",
+        "test/css/transforms",
+        "test/css/transforms3d",
+        "test/css/transitions",
+        "test/css/vhunit",
+        "test/css/vmaxunit",
+        "test/css/vminunit",
+        "test/css/vwunit",
+        "test/touchevents"
+    ]
+}

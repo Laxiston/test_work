@@ -1,0 +1,82 @@
+//- Created by labtec on 09.04.17.
+include ../node_modules/bemto.pug/bemto
+
+//- Settings
+-
+    set_bemto_settings({
+        prefix: {
+            'js-': true
+        },
+        element: '__',
+        modifier: '_',
+        output_element: '__',
+        output_modifier: '_',
+        default_tag: 'div'
+    });
+
+    var _dev_ = __DEV__;
+    var _build_ = __PROD__;
+    var svg = function (src) { return '/static/images/svg/' + src };
+    var general = function (src) { return '/static/images/general/' + src };
+    var content = function (src) { return '/static/images/content/' + src };
+    var plugins = function (src) { return '/static/images/plugins/' + src };
+    var url = 'javascript:void(0);';
+    var random = function (min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; };
+    var assign = function (obj) { return _.assignIn(page, obj) };
+    var title = function (title) { return _.join([title, 'Unbiased'], ' | ') };
+
+    var page = {
+        title: 'test',
+        header: false,
+        sidebar: false,
+        footer: false,
+        adaptive: true,
+        icons: _build_,
+        preload: _build_,
+        favicon: {
+            path: function(icon) { return `/static/misc/favicons/${icon}` },
+            version: '',
+            touch: [
+                '57x57',
+                '60x60',
+                '72x72',
+                '76x76',
+                '114x114',
+                '120x120',
+                '144x144',
+                '152x152',
+                '180x180'
+            ],
+            safariPinnedTab: '#007b81',
+            themeColor: '#00747f'
+        },
+        useSocialMetaTags: '',
+        attrs: '',
+        menu: [{
+            link: 'index.html',
+            text: 'Главная',
+            active: 'index'
+        }, {
+            link: 'about.html',
+            text: 'О нас',
+            active: 'about'
+        }]
+    };
+
+    var footer = {};
+
+mixin container(data)
+    div(data-v-container='fixed')
+        div(data-v-row='')
+            div(data-v-col='lg:24')&attributes(data): block
+
+mixin icon(icon)
+    +b.SPAN.b-icon&attributes(attributes)= icon
+
+mixin link
+    a(class={ 'animsition-link': page.preload })&attributes(attributes): block
+
+//- Included components mixin
+//-include ./components/navbar/navbar
+include ./components/modal/modal
+//-include ./components/footer/footer

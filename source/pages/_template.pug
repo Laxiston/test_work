@@ -1,0 +1,36 @@
+include ../settings
+include ../components/head/head
+
+block vars
+
+doctype html
+html(class='no-js', lang= page.language || false)
+    head
+        +head(page)
+
+    body(class={'animsition': page.preload, 'b-site': true})
+        +b.b-page#app(class=(page.name ? {
+            ['_' + page.name]: page.name
+        } : false))&attributes(page.attrs || false)
+
+            if page.header
+                block header
+                    // start: HEADER
+                    +e.HEADER.header: include ../components/navbar/navbar
+                    // end: HEADER
+            // start: APP CONTENT
+            +e.inner
+                // start: MAIN CONTENT
+                +e.content: block main
+                // end: MAIN CONTENT
+
+                if page.footer
+                    // start: FOOTER
+                    block footer
+                        +e.FOOTER.footer#footer: include ../components/footer/footer
+                    // end: FOOTER
+            // end: APP CONTENT
+
+
+        block scripts
+        block modals

@@ -1,0 +1,58 @@
+$namespace: 'data-v' !default;
+$grid-map: (
+    classes: (
+        'container': '#{$namespace}-container',
+        'row': '#{$namespace}-row',
+        'col': '#{$namespace}-col',
+        'cols': '#{$namespace}-cols',
+        'offset': '#{$namespace}-offset',
+        'up': '#{$namespace}-up',
+        'expand': '#{$namespace}-expand',
+        'unstack': '#{$namespace}-unstack',
+        'collapse': '#{$namespace}-collapse',
+        'shrink': '#{$namespace}-shrink',
+        'position': '#{$namespace}-position',
+        'uncollapse': '#{$namespace}-uncollapse',
+        'cols': '#{$namespace}-cols',
+        'flex': '#{$namespace}-flex',
+        'hide': '#{$namespace}-hide',
+        'show': '#{$namespace}-show',
+    ),
+    breakpoints: (
+        xs: 0,
+        sm: 768px,
+        md: 992px,
+        lg: 1366px,
+        xlg: 1680px,
+    ),
+    'max-widths': (
+        sm: 720px,
+        md: 960px,
+        lg: 1140px
+    ),
+    columns: 12,
+    'column-gutter': (
+        xs: 20px,
+        lg: 30px
+    ),
+    'column-align-edge': true,
+    'block-max': 8,
+) !default;
+
+$grid-classes: map_get($grid-map, 'classes') !default;
+
+// 2. Breakpoints
+// --------------
+$grid-print-breakpoint: lg !default;
+$grid-zero-breakpoint: sm !default;
+$grid-breakpoints: map_get($grid-map, 'breakpoints') !default;
+$grid-breakpoint-classes: (sm md lg) !default;
+
+// 3. The Grid
+// -----------
+$grid-container-max-widths: map_get($grid-map, 'max-widths') !default;
+$grid-columns-count: map_get($grid-map, 'columns') !default;
+$grid-columns-gutter: map_get($grid-map, 'column-gutter') !default;
+$grid-column-align-edge: map_get($grid-map, 'column-align-edge') !default;
+$grid-column-alias: map_get(map_get($grid-map, 'classes'), 'cols') !default;
+$grid-block-max: map_get($grid-map, 'block-max') !default;

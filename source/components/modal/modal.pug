@@ -1,0 +1,26 @@
+//- Created by Labtec on 09.06.2017.
+mixin modal(data)
+    +b.modal(
+        id=`${data.name}Modal`,
+        role='document'
+    )&attributes(data.attr)
+        +e.content
+            if data.header
+                +headerModal(data.header)
+            +bodyModal(data.body)
+            if data.footer
+                +footerModal(data.footer)
+
+mixin headerModal(data)
+    +e.header
+        +e.H5.title Title
+        +e.BUTTON.close(data-close='', aria-label='Close')
+            +icon('close')
+
+mixin bodyModal(data)
+    +e.body: block body
+
+mixin footerModal(data)
+    +e.footer: block footer
+
+

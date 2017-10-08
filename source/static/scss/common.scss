@@ -1,0 +1,481 @@
+html * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:focus,
+textarea, select,
+#{$all-text-inputs},
+#{$all-buttons} {
+    &:focus {
+        outline: none;
+    }
+}
+
+img {
+    max-width: 100%;
+
+    [data-plugin=parallax] > & {
+        max-width: none;
+        position: absolute;
+    }
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+    transition: {
+        property: color, border;
+        timing-function: $ease-in-out-cubic;
+        duration: 300ms;
+    }
+;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+}
+
+ul, ol, li {
+    @include nl;
+}
+
+b, strong {
+    font-weight: 700;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none;
+}
+
+.hiddendiv {
+    display: none;
+    padding-top: 1.2rem;
+    position: absolute;
+    top: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.collapse {
+    display: none;
+
+    &.show {
+        display: block;
+    }
+}
+
+.collapsing {
+    height: 0;
+    overflow: hidden;
+    position: relative;
+    transition: height 350ms $ease-in-out-cubic;
+}
+
+.menu-open {
+    overflow: hidden;
+}
+
+.fade {
+    opacity: 0;
+    transition: opacity 300ms $ease-in-out-cubic;
+
+    &.show {
+        opacity: 1;
+    }
+}
+
+@if $modalOn {
+    .modal-open {
+        overflow: hidden;
+    }
+
+    .modal-backdrop,
+    .reveal-overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba($black, 0.45);
+        z-index: 1040;
+
+        &.fade {
+            opacity: 0;
+        }
+
+        &.show {
+            opacity: .6;
+        }
+    }
+
+    .reveal-overlay {
+        display: none;
+    }
+
+    body.is-reveal-open { // sass-lint:disable-line no-qualifying-elements
+        overflow: hidden;
+    }
+
+    // html gets this class only in iOS
+    html.is-reveal-open,
+    html.is-reveal-open body {
+        min-height: 100%;
+        overflow: hidden;
+        position: fixed;
+        user-select: none;
+    }
+}
+
+// Component: Loader
+// ========================================================================
+@include b('b-loader') {
+    $animsition-loading-spinner-bg: $body-font-color !default;
+    $index-loader-line-width: 4px !default;
+    $index-loader-line-height: 25px !default;
+    $index-loader-color: map_get($color, 'secondary') !default;
+
+    @function loaderdelay($interval, $count, $index) {
+        @return ($index * $interval) - ($interval * $count);
+    }
+
+    margin: 50vh auto 0;
+    text-align: center;
+    text-transform: uppercase;
+    transform: translateY(-50%);
+
+    h2 {
+        font-weight: 300;
+    }
+
+    img {
+        max-width: 160px;
+    }
+
+    @include e('inner') {
+        margin-top: 20px;
+
+        > div {
+            animation: loader-index 0.9s loaderdelay(0.2s, 4, 0) infinite $ease-in-out-cubic;
+            background: $index-loader-color;
+            border-radius: 2px;
+            display: inline-block;
+            height: $index-loader-line-height;
+            margin: 2px;
+            width: $index-loader-line-width;
+            &:nth-child(2),
+            &:nth-child(4) {
+                animation-delay: loaderdelay(0.2s, 4, 1) !important;
+            }
+
+            &:nth-child(1),
+            &:nth-child(5) {
+                animation-delay: loaderdelay(0.2s, 4, 2) !important;
+            }
+
+            &:nth-child(6) {
+                animation-delay: loaderdelay(0.2s, 4, 3) !important;
+            }
+
+            animation-fill-mode: both;
+        }
+    }
+
+    @include e('overlay') {
+        background: #fff;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999999;
+    }
+}
+
+@keyframes loader-index {
+    0% {
+        transform: scaleY(1.0);
+    }
+
+    50% {
+        transform: scaleY(0.4);
+    }
+
+    100% {
+        transform: scaleY(1.0);
+    }
+}
+
+// Component: Icons
+// ========================================================================
+@include b('b-icon') {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    direction: ltr;
+    display: inline-block;
+    font-family: 'MaterialIcons', sans-serif !important;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: normal;
+    line-height: 1;
+    text-transform: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    -webkit-font-smoothing: antialiased;
+
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+    -webkit-font-feature-settings: 'liga';
+}
+
+// Component: Tooltips
+// ========================================================================
+@include b('b-tooltip') {
+    $tooltip-arrow-width: 5px;
+    $tooltip-arrow-color: rgba(#000, .8);
+
+    display: block;
+    font-size: 13px;
+    line-height: 1.38;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    word-wrap: break-word;
+    z-index: 1070;
+
+    @include state('show') {
+        opacity: 1;
+    }
+
+    @include e('arrow') {
+        display: block;
+        position: absolute;
+        @include size($tooltip-arrow-width);
+
+        @include before {
+            border: solid transparent;
+            position: absolute;
+        }
+    }
+
+    @include e('inner') {
+        background-color: $tooltip-arrow-color;
+        border-radius: 7px;
+        color: #fff;
+        max-width: 230px;
+        padding: 14px 10px;
+        text-align: center;
+    }
+
+    @include state('bs-tooltip-top') {
+        padding: $tooltip-arrow-width 0;
+
+        .b-tooltip__arrow {
+            bottom: 0;
+
+            &:before {
+                border-top-color: $tooltip-arrow-color;
+                border-width: $tooltip-arrow-width $tooltip-arrow-width 0;
+                content: '';
+                margin-left: -($tooltip-arrow-width - 2);
+            }
+        }
+    }
+
+    @include state('bs-tooltip-right') {
+        padding: 0 $tooltip-arrow-width;
+
+        .b-tooltip__arrow {
+            left: 0;
+
+            &:before {
+                border-right-color: $tooltip-arrow-color;
+                border-width: $tooltip-arrow-width $tooltip-arrow-width $tooltip-arrow-width 0;
+                content: '';
+                margin-top: -($tooltip-arrow-width - 2);
+            }
+        }
+    }
+
+    @include state('bs-tooltip-bottom') {
+        padding: $tooltip-arrow-width 0;
+
+        .b-tooltip__arrow {
+            top: 0;
+
+            &:before {
+                border-bottom-color: $tooltip-arrow-color;
+                border-width: 0 $tooltip-arrow-width $tooltip-arrow-width;
+                content: '';
+                margin-left: -($tooltip-arrow-width - 2);
+            }
+        }
+    }
+
+    @include state('bs-tooltip-left') {
+        padding: 0 $tooltip-arrow-width;
+
+        .b-tooltip__arrow {
+            right: 0;
+
+            &:before {
+                border-left-color: $tooltip-arrow-color;
+                border-width: $tooltip-arrow-width 0 $tooltip-arrow-width $tooltip-arrow-width;
+                content: '';
+                margin-top: -($tooltip-arrow-width - 2);
+                right: 0;
+            }
+        }
+    }
+
+    @include state('bs-tooltip-auto') {
+        @each $value in ('top', 'right', 'bottom', 'left') {
+            &[x-placement^='#{$value}'] {
+                @extend .bs-tooltip-#{$value};
+            }
+        }
+    }
+}
+
+// Layout: Site
+// ========================================================================
+@include b('b-site') {
+    @include m('disable-scrolling') {
+        overflow: hidden;
+    }
+}
+
+// Layout: Page
+// ========================================================================
+@include b('b-page') {
+    position: relative;
+    @include size(100% auto);
+
+    @if $headerOn {
+        @include e('header') {
+            position: absolute;
+            @include size(100% map_get($header-height, 'xs'));
+            margin-bottom: 0;
+            background: $black;
+            z-index: $reveal-zindex - 1;
+
+            @each $bp, $value in map_remove($header-height, 'xs') {
+                @include min($bp) {
+                    height: $value;
+                }
+            }
+        }
+    }
+
+    @include e('inner') {
+        min-height: 100vh;
+        position: relative;
+    }
+
+    @include e('content') {
+        min-height: 100%;
+        padding: 80px 0 100px;
+
+        position: relative;
+
+        @include max(sm) {
+            display: block;
+            padding: 40px 0 50px;
+        }
+
+        @if $headerOn {
+            padding-top: map_get($header-height, 'xs');
+
+            @each $bp, $value in map_remove($header-height, 'xs') {
+                @include min($bp) {
+                    padding-top: $value;
+                }
+            }
+
+            @include at('navbar-fixed') {
+                @include min(md) {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        @if $footerOn {
+            padding-bottom: map_get($footer-height, 'xs');
+
+            @each $bp, $value in map_remove($footer-height, 'xs') {
+                @include min($bp) {
+                    padding-bottom: $value;
+                }
+            }
+        }
+    }
+
+    @if $footerOn {
+        @include e('footer') {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+
+            background: #2d2d2d;
+
+            @each $bp, $value in map_remove($footer-height, 'xs') {
+                @include min($bp) {
+                    height: $value;
+                }
+            }
+
+            @include max(sm) {
+                position: relative;
+                height: auto;
+            }
+        }
+    }
+}
+
+// Form: Select-dropdown
+// ========================================================================
+.select2-dropdown {
+    border: none;
+    margin-top: 2px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+
+    .select2-results {
+        padding: 5px 0;
+        background: #fff;
+        border-radius: 0 0 3px 3px;
+        border: map_get($input, 'border');
+
+        .select2-results__options {
+        }
+    }
+
+    .select2-results__option {
+        color: map_get($color, 'black');
+        font-size: 15px;
+        padding: 6px 20px;
+
+        &[aria-selected=true],
+        &--highlighted,
+        &--highlighted[aria-selected] {
+            background: #f0f3f5;
+            color: map_get($color, 'black');
+        }
+    }
+}
+
+.iziModal {
+    .success, .error {
+        color: #fff;
+        text-align: center;
+        font-size: 18px;
+        @extend %galano;
+    }
+}

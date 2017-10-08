@@ -1,0 +1,75 @@
+// Forms: input
+// ========================================================================
+$input: (
+    'color': map_get($color, 'default'),
+    'background': transparent,
+    'border': 1px solid #d9d9d9,
+    'transition': (border 400ms $ease-in-out-cubic, background 400ms $ease-in-out-cubic, height 400ms $ease-in-out-cubic),
+    'height': 56px,
+    'paddings': 10px 20px,
+    'box-shadow': inset 0px 4px 3px 0 rgba(#000, 0.02),
+    font: (
+        'size': 18px,
+        'family': $body-font-family
+    ),
+    hover: (
+        'border-color': '',
+        'box-shadow': ''
+    ),
+    focus: (
+        'background-color': '',
+        'color': map_get($color, 'default')
+    )
+);
+
+// Forms: button
+// ========================================================================
+$btn: (
+    'color': #000,
+    'border': 1px solid transparent,
+    'transition': all 300ms $ease-in-out-cubic,
+    'height': 60px,
+    'paddings': 12px 20px,
+    'background': none,
+    'box-shadow': none,
+    font: (
+        'size': 20px
+    ),
+    default: (
+        'color': map_get($color, 'default'),
+        'background': linear-gradient(to bottom, rgba(#fff, .02), rgba(#000, .02)),
+        'border-color': #ededed,
+        'box-shadow': 0px 1px 0 0 #ededed,
+        'line-height': 36px,
+        hover: (
+            'color': map_get($color, 'default'),
+            'background-position': top center,
+            'border-color': #ededed,
+            'box-shadow': none
+        ),
+        active: (
+            'color': map_get($color, 'default'),
+            'background': none,
+            'border-color': #ededed
+        ),
+        disabled: ()
+    ),
+    primary: (
+        'color': $white,
+        'text-shadow': 0px 1px 2px rgba(#000, 0.2),
+        'background': #f26522 linear-gradient(180deg, rgba(#fff, .04) 0%, rgba(77, 77, 77, .04) 100%),
+        'border': none,
+        'line-height': 38px,
+        hover: (
+            'color': $white,
+            'background-position': bottom center,
+            'background-color': lighten(#f26522, 5%)
+        ),
+        active: (
+            'color': $white,
+            'background-color': darken(#f26522, 5%)
+        ),
+        disabled: ()
+    )
+);
+

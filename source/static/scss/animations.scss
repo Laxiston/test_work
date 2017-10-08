@@ -1,0 +1,38 @@
+// ANIMATIONS
+// ========================================================================
+.fade-in {
+    &.mui-enter {
+        animation: fadeIn 300ms $ease-in-out-cubic;
+    }
+}
+
+.fade-out {
+    &.mui-leave {
+        animation: fadeOut 300ms $ease-in-out-cubic;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+

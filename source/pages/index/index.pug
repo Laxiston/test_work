@@ -1,0 +1,30 @@
+extends ../_template
+
+include ../../components/title/title
+include ../../components/form/form
+
+append vars
+    -
+        page = assign({
+            title: title('Test work')
+        });
+
+append main
+    +container
+        +title({
+            main: 'Adviser registration',
+            description: 'Please follow this wizard and you will be ready in 2 minutes.'
+        })._center.animsition(
+            data-plugin='animsition',
+            data-animsition-in-duration='1000',
+            data-animsition-in-class='fade-in-down-sm'
+        )
+
+        +b.b-image
+            img.animsition(
+                src='./images/tariff-plan_bg.png',
+                data-plugin='animsition',
+                data-animsition-in-class='zoom-in-sm'
+            )
+
+        +form

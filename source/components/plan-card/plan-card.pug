@@ -1,0 +1,33 @@
+//- Created by Labtec on 23.06.2017.
+
+mixin plan-card(data, index)
+    +b.b-plan-card(data-plan='', class={ 'is-active': data.checked })&attributes(attributes)
+        input(
+            id=`${data.title.toLowerCase()}Plan`,
+            type='radio',
+            value= data.title.toLowerCase(),
+            name='plan',
+            checked=(data.checked || false)
+        )
+        +e({ metadata: { content_type: 'block' } }).LABEL.inner(
+            for=`${data.title.toLowerCase()}Plan`,
+            data-v-flex='container dir:column'
+        )
+            +e.body(data-v-flex='container dir:column')
+                +e.title(data-title='')= data.title
+                +e.subtitle= data.subtitle
+                +e.UL.privileges
+                    each privilege in data.privileges
+                        li= privilege
+                +e.footer
+                    +e.price(class=( `_${data.priceMod}` || false ))= data.price
+                    +e.description= data.description
+
+                    +e.checked(data-v-flex='container align:middle align:center')
+                        +icon('check')
+                        | Plan selected
+                    +b.b-btn-holder(data-v-flex='align:center')
+                        +e.A.btn(
+                            href=url,
+                            class=(data.priceMod ? '_primary' : '_default')
+                        ) Choose #[span(data-v-hide='md:down') #{data.title}] plan

@@ -1,0 +1,13 @@
+@import './base/settings';
+
+// NPM plugins
+@import '~animsition/src/css/base';
+@import '~animsition/src/css/loading';
+@import '~animsition/src/css/zoom/zoom-sm';
+@import '~animsition/src/css/fade/fade';
+@import '~animsition/src/css/fade/fade-down-sm';
+@import '~select2/dist/css/select2.min';
+@import '~izimodal/css/iziModal';
+
+// Custom plugins
+@import './plugins/grid/index';

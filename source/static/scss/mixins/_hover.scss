@@ -1,0 +1,8 @@
+@mixin hover {
+    &:hover {
+        .no-js &, // the fallback
+        .js.no-touchevents & { // relay same styles to active for touch devices
+            @content;
+        }
+    }
+}

@@ -1,0 +1,16 @@
+$fontPath: '../fonts/';
+$fileFormats: woff woff2 ttf;
+$fontFamilies: (
+    'MaterialIcons': ('400'),
+    'Lato': ('400', '700'),
+    'GalanoGrotesque': ('800')
+);
+
+@each $fontFamily, $fontWeight in $fontFamilies {
+    @include font-face(
+            $fontFamilies,
+            $fontFamily,
+        $path: $fontPath,
+        $file-formats: $fileFormats
+    );
+}

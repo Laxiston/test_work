@@ -1,0 +1,32 @@
+@include b('b-footer') {
+    color: #6e6e6e;
+
+    @include e('bottom') {
+        padding: 13px 0;
+    }
+
+    @include e('menu') {
+        @include e('item') {
+
+            @include duo {
+                margin-left: 20px;
+            }
+
+            a {
+                font-size: 14px;
+                color: currentColor;
+
+                @include hover {
+                    color: #fff;
+                    text-decoration: none;
+                }
+            }
+
+            @include m('active') {
+                a {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

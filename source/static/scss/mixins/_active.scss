@@ -1,0 +1,7 @@
+@mixin active {
+	.no-js &:focus,
+	.js.no-touchevents &:focus,
+	.js.touchevents &:active { // relay same styles to active for touch devices
+		@content;
+	}
+}

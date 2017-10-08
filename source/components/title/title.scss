@@ -1,0 +1,30 @@
+@include b('b-title') {
+    color: map_get($color, 'black');
+
+    @include e('main') {
+        @extend %galano;
+        font-size: 36px;
+        line-height: 1.2;
+        margin-bottom: 15px;
+
+        @include min(sm) {
+            font-size: 60px;
+            line-height: 80px;
+            margin-bottom: 0;
+        }
+    }
+
+    @include e('description') {
+        font-size: 18px;
+        margin-bottom: 15px;
+
+        @include min(sm) {
+            font-size: 26px;
+            line-height: 32px;
+        }
+    }
+
+    @include m('center') {
+        text-align: center;
+    }
+}

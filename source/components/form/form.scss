@@ -1,0 +1,42 @@
+@include b('b-form') {
+    @include e('title') {
+        @extend %galano;
+        color: map_get($color, 'black');
+        font-size: 32px;
+        text-align: center;
+        overflow: hidden;
+        margin-top: 40px;
+        margin-bottom: 20px;
+
+        &:before, &:after {
+            content: '';
+            background: rgba(#9eb7bc, .3);
+            display: inline-block;
+            vertical-align: middle;
+            @include size(50% 1px);
+            position: relative;
+
+            @include max(xs) {
+                display: none;
+            }
+        }
+
+        &:before {
+            right: 16px;
+            margin-left: -50%;
+        }
+
+        &:after {
+            left: 16px;
+            margin-right: -50%;
+        }
+    }
+
+    @include e('plan-wrapper') {
+        margin-bottom: 40px;
+
+        @include min(sm) {
+            padding-top: 30px;
+        }
+    }
+}

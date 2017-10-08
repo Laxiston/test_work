@@ -1,0 +1,422 @@
+//  Custom Settings
+//  ------------
+$bem: (
+    'separator': (
+        'element': "__",
+        'modifier': "_"
+    ),
+	'shortcodes': (
+		'ab': ('before', 'after')
+	)
+);
+
+$asset-pipeline: false;
+
+//  Attributes
+//  ----------
+$am: 'data-v';
+
+//  Icons
+//  -----
+$icons: ();
+
+//  Layout
+//  ------
+$fixedOn: false;
+$headerOn: false;
+$footerOn: false;
+$sidebarOn: false;
+$modalOn:  false;
+
+$sidebar-fixed: false;
+$header-fixed: false;
+$footer-fixed: false;
+$footer-bottom: true;
+
+$footer-height: (
+    xs: 50px,
+    sm: 50px,
+    md: 50px,
+    lg: 50px
+);
+$header-height: (
+    xs: 50px,
+    sm: 50px,
+    md: 50px,
+    lg: 50px
+);
+$header-height-xs: 50px;
+$footer-height-xs: 50px;
+$sidebar-width: 200px;
+$sidebar-width-closed: 50px;
+
+//  Foundation for Sites Settings
+//  -----------------------------
+//
+//  Table of Contents:
+//
+//   0. Font Faces
+//   1. Global
+//   2. Breakpoints
+//   3. The Grid
+//   4. Base Typography
+//   5. Typography Helpers
+//   6. Abide
+//   7. Accordion
+//   8. Accordion Menu
+//   9. Badge
+//  10. Breadcrumbs
+//  11. Button
+//  12. Button Group
+//  13. Callout
+//  14. Card
+//  15. Close Button
+//  16. Drilldown
+//  17. Dropdown
+//  18. Dropdown Menu
+//  19. Flexbox Utilities
+//  20. Forms
+//  21. Label
+//  22. Media Object
+//  23. Menu
+//  24. Meter
+//  25. Off-canvas
+//  26. Orbit
+//  27. Pagination
+//  28. Progress Bar
+//  29. Prototype Arrow
+//  30. Prototype Border-Box
+//  31. Prototype Border-None
+//  32. Prototype Bordered
+//  33. Prototype Display
+//  34. Prototype Font-Styling
+//  35. Prototype List-Style-Type
+//  36. Prototype Overflow
+//  37. Prototype Position
+//  38. Prototype Rounded
+//  39. Prototype Separator
+//  40. Prototype Shadow
+//  41. Prototype Sizing
+//  42. Prototype Spacing
+//  43. Prototype Text-Decoration
+//  44. Prototype Text-Transformation
+//  45. Prototype Text-Utilities
+//  46. Responsive Embed
+//  47. Reveal
+//  48. Slider
+//  49. Switch
+//  50. Table
+//  51. Tabs
+//  52. Thumbnail
+//  53. Title Bar
+//  54. Tooltip
+//  55. Top Bar
+//  56. Xy Grid
+
+//@import '~foundation-sites/scss/util/_util';
+
+// 0. FontFaces
+// ------------
+$font-family-main: 'Lato', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+// 1. Global
+// ---------
+$sans: 'Lato', sans-serif;
+$serif: 'Roboto Slab', serif;
+$global-font-size: 100%;
+$global-width: 1366px;
+$global-lineheight: 1.5;
+$foundation-palette: (
+    primary: #1779ba,
+    secondary: #767676,
+    success: #3adb76,
+    warning: #ffae00,
+    alert: #cc4b37,
+);
+$light-gray: #e6e6e6;
+$medium-gray: #cacaca;
+$dark-gray: #8a8a8a;
+$black: #000;
+$white: #fff;
+$body-background: $white;
+$body-font-color: $black;
+$body-font-family: $font-family-main;
+$body-antialiased: true;
+$global-margin: 1rem;
+$global-padding: 20px;
+$global-weight-normal: normal;
+$global-weight-bold: 700;
+$global-flexbox: true;
+$global-text-direction: ltr;
+
+//@include add-foundation-colors;
+
+// 2. Breakpoints
+// --------------
+$flex-source-ordering-count: 6;
+$flexbox-responsive-breakpoints: true;
+
+// 3. The Grid
+// -----------
+$namespace: 'data-v';
+$grid-map: (
+    classes: (
+        'container': '#{$namespace}-container',
+        'row': '#{$namespace}-row',
+        'col': '#{$namespace}-col',
+        'offset': '#{$namespace}-offset',
+        'up': '#{$namespace}-up',
+        'expand': '#{$namespace}-expand',
+        'unstack': '#{$namespace}-unstack',
+        'collapse': '#{$namespace}-collapse',
+        'shrink': '#{$namespace}-shrink',
+        'position': '#{$namespace}-position',
+        'uncollapse': '#{$namespace}-uncollapse',
+        'cols': '#{$namespace}-cols',
+        'flex': '#{$namespace}-flex',
+        'hide': '#{$namespace}-hide',
+        'show': '#{$namespace}-show',
+    ),
+    breakpoints: (
+        xs: 0,
+        sm: 768px,
+        md: 992px,
+        lg: 1366px,
+        xlg: 1680px,
+    ),
+    'max-widths': (
+        xs: 100%,
+        sm: 720px,
+        md: 960px,
+        lg: 1140px
+    ),
+    columns: 24,
+    'column-gutter': (
+        xs: 20px
+    ),
+    'column-align-edge': true,
+    'block-max': 16,
+);
+
+$grid-breakpoints: map_get($grid-map, 'breakpoints');
+$grid-print-breakpoint: lg;
+$grid-zero-breakpoint: xs;
+$grid-breakpoint-classes: (xs sm md lg);
+
+// 4. Base Typography
+// ------------------
+
+$header-font-family: $body-font-family;
+$header-font-weight: $global-weight-normal;
+$header-font-style: normal;
+$font-family-monospace: Consolas, 'Liberation Mono', Courier, monospace;
+$header-color: inherit;
+$header-lineheight: 1.4;
+$header-margin-bottom: 0.5rem;
+$header-styles: (
+    sm: (
+        'h1': ('font-size': 24),
+        'h2': ('font-size': 20),
+        'h3': ('font-size': 19),
+        'h4': ('font-size': 18),
+        'h5': ('font-size': 17),
+        'h6': ('font-size': 16),
+    ),
+    md: (
+        'h1': ('font-size': 48),
+        'h2': ('font-size': 40),
+        'h3': ('font-size': 31),
+        'h4': ('font-size': 25),
+        'h5': ('font-size': 20),
+        'h6': ('font-size': 16),
+    ),
+);
+$header-text-rendering: optimizeLegibility;
+$small-font-size: 80%;
+$header-small-font-color: $medium-gray;
+$paragraph-lineheight: 1.6;
+$paragraph-margin-bottom: 1rem;
+$paragraph-text-rendering: optimizeLegibility;
+$code-color: $black;
+$code-font-family: $font-family-monospace;
+$code-font-weight: $global-weight-normal;
+$code-background: $light-gray;
+$code-border: 1px solid $medium-gray;
+$code-padding: rem-calc(2 5 1);
+
+/*
+$hr-width: $global-width;
+$hr-border: 1px solid $medium-gray;
+$hr-margin: rem-calc(20) auto;
+$list-lineheight: $paragraph-lineheight;
+$list-margin-bottom: $paragraph-margin-bottom;
+$list-style-type: disc;
+$list-style-position: outside;
+$list-side-margin: 1.25rem;
+$list-nested-side-margin: 1.25rem;
+$defnlist-margin-bottom: 1rem;
+$defnlist-term-weight: $global-weight-bold;
+$defnlist-term-margin-bottom: 0.3rem;
+$blockquote-color: $dark-gray;
+$blockquote-padding: rem-calc(9 20 0 19);
+$blockquote-border: 1px solid $medium-gray;
+$cite-font-size: rem-calc(13);
+$cite-color: $dark-gray;
+$cite-pseudo-content: '\2014 \0020';
+$keystroke-font: $font-family-monospace;
+$keystroke-color: $black;
+$keystroke-background: $light-gray;
+$keystroke-padding: rem-calc(2 4 0);
+$keystroke-radius: 0;
+$abbr-underline: 1px dotted $black;
+
+// 11. Button
+// ----------
+$button-font-family: inherit;
+$button-padding: 14px 40px;
+$button-margin: 0;
+$button-fill: solid;
+$button-background: $primary-color;
+$button-background-hover: scale-color($button-background, $lightness: -15%);
+$button-color: $white;
+$button-color-alt: $black;
+$button-radius: 0;
+$button-hollow-border-width: 1px;
+$button-sizes: (
+    tiny: 0.6rem,
+    small: 0.75rem,
+    default: 0.9rem,
+    large: 1.25rem,
+);
+$button-palette: $foundation-palette;
+$button-opacity-disabled: 0.25;
+$button-background-hover-lightness: -20%;
+$button-hollow-hover-lightness: -50%;
+$button-transition: background-color 0.25s ease-out, color 0.25s ease-out;
+
+// 19. Flexbox Utilities
+// ---------------------
+
+$flex-source-ordering-count: 6;
+$flexbox-responsive-breakpoints: true;
+
+// 20. Forms
+// ---------
+
+$fieldset-border: 1px solid $medium-gray;
+$fieldset-padding: rem-calc(20);
+$fieldset-margin: rem-calc(18 0);
+$legend-padding: rem-calc(0 3);
+$form-spacing: rem-calc(16);
+$helptext-color: $black;
+$helptext-font-size: rem-calc(13);
+$helptext-font-style: italic;
+$input-prefix-color: $black;
+$input-prefix-background: $light-gray;
+$input-prefix-border: 1px solid $medium-gray;
+$input-prefix-padding: 1rem;
+$form-label-color: $black;
+$form-label-font-size: rem-calc(14);
+$form-label-font-weight: $global-weight-normal;
+$form-label-line-height: 1.8;
+$select-background: $white;
+$select-triangle-color: $dark-gray;
+$select-radius: 0;
+$input-color: $white;
+$input-placeholder-color: $medium-gray;
+$input-font-family: inherit;
+$input-font-size: rem-calc(16);
+$input-font-weight: $global-weight-normal;
+$input-line-height: $global-lineheight;
+$input-background: $white;
+$input-background-focus: $white;
+$input-background-disabled: $light-gray;
+$input-border: 0px solid $medium-gray;
+$input-border-focus: 1px solid $dark-gray;
+$input-padding: $form-spacing / 2;
+$input-shadow: inset 0 1px 2px rgba($black, 0.1);
+$input-shadow-focus: 0 0 5px $medium-gray;
+$input-cursor-disabled: not-allowed;
+$input-transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+$input-number-spinners: true;
+$input-radius: 0;
+$form-button-radius: 0;
+
+// 21. Label
+// ---------
+
+$label-background: $primary-color;
+$label-color: $white;
+$label-color-alt: $black;
+$label-palette: $foundation-palette;
+$label-font-size: 0.8rem;
+$label-padding: 0.33333rem 0.5rem;
+$label-radius: 0;
+
+// 47. Reveal
+// ----------
+
+$reveal-background: $white;
+$reveal-width: 600px;
+$reveal-max-width: $global-width;
+$reveal-padding: $global-padding;
+$reveal-border: 1px solid $medium-gray;
+$reveal-radius: 0;
+$reveal-zindex: 1005;
+$reveal-overlay-background: rgba($black, 0.45);
+
+// 50. Table
+// ---------
+
+$table-background: $white;
+$table-color-scale: 5%;
+$table-border: 1px solid smart-scale($table-background, $table-color-scale);
+$table-padding: rem-calc(8 10 10);
+$table-hover-scale: 2%;
+$table-row-hover: darken($table-background, $table-hover-scale);
+$table-row-stripe-hover: darken($table-background, $table-color-scale + $table-hover-scale);
+$table-is-striped: true;
+$table-striped-background: smart-scale($table-background, $table-color-scale);
+$table-stripe: even;
+$table-head-background: smart-scale($table-background, $table-color-scale / 2);
+$table-head-row-hover: darken($table-head-background, $table-hover-scale);
+$table-foot-background: smart-scale($table-background, $table-color-scale);
+$table-foot-row-hover: darken($table-foot-background, $table-hover-scale);
+$table-head-font-color: $body-font-color;
+$table-foot-font-color: $body-font-color;
+$show-header-for-stacked: false;
+$table-stack-breakpoint: md;
+*/
+
+/// CSS cubic-bezier timing functions. Timing functions courtesy of jquery.easie (github.com/jaukia/easie)
+///
+/// Timing functions are the same as demoed here: http://jqueryui.com/resources/demos/effect/easing.html
+///
+/// @type cubic-bezier
+$ease-in-quad: cubic-bezier(0.550, 0.085, 0.680, 0.530);
+$ease-in-cubic: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+$ease-in-quart: cubic-bezier(0.895, 0.030, 0.685, 0.220);
+$ease-in-quint: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+$ease-in-sine: cubic-bezier(0.470, 0.000, 0.745, 0.715);
+$ease-in-expo: cubic-bezier(0.950, 0.050, 0.795, 0.035);
+$ease-in-circ: cubic-bezier(0.600, 0.040, 0.980, 0.335);
+$ease-in-back: cubic-bezier(0.600, -0.280, 0.735, 0.045);
+
+$ease-out-quad: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+$ease-out-cubic: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+$ease-out-quart: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+$ease-out-quint: cubic-bezier(0.230, 1.000, 0.320, 1.000);
+$ease-out-sine: cubic-bezier(0.390, 0.575, 0.565, 1.000);
+$ease-out-expo: cubic-bezier(0.190, 1.000, 0.220, 1.000);
+$ease-out-circ: cubic-bezier(0.075, 0.820, 0.165, 1.000);
+$ease-out-back: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+
+$ease-in-out-quad: cubic-bezier(0.455, 0.030, 0.515, 0.955);
+$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+$ease-in-out-quart: cubic-bezier(0.770, 0.000, 0.175, 1.000);
+$ease-in-out-quint: cubic-bezier(0.860, 0.000, 0.070, 1.000);
+$ease-in-out-sine: cubic-bezier(0.445, 0.050, 0.550, 0.950);
+$ease-in-out-expo: cubic-bezier(1.000, 0.000, 0.000, 1.000);
+$ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.150, 0.860);
+$ease-in-out-back: cubic-bezier(0.680, -0.550, 0.265, 1.550);
+

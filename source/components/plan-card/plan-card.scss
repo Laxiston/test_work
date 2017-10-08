@@ -1,0 +1,349 @@
+@include b('b-plan-card') {
+    position: relative;
+
+    input[type=radio], .fs-checkbox {
+        display: none;
+    }
+
+    @include max(xs) {
+        @include duo {
+            margin-top: 30px;
+        }
+    }
+
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        opacity: 0;
+        transition: all 300ms $ease-in-out-cubic;
+    }
+
+    &:after {
+        @include size(104px 24px);
+        left: 50%;
+        margin-top: -11px;
+        margin-left: -52px;
+        top: 0;
+        background: url('./images/selected.svg') no-repeat;
+        z-index: 2;
+    }
+
+    &:before {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 3px;
+        box-shadow: 0 11px 50px rgba(#000, 0.15);
+        background: $white;
+    }
+
+    @include is('active') {
+        z-index: 3;
+
+        &:before, &:after {
+            top: -20px;
+            opacity: 1;
+
+            @include max(xs) {
+                top: -5px;
+            }
+        }
+
+        &:before {
+            bottom: -20px;
+            left: -20px;
+            right: -20px;
+
+            @include max(xs) {
+                bottom: -5px;
+                left: -5px;
+                right: -5px;
+            }
+        }
+
+        @include e('inner') {
+            box-shadow: none;
+
+            &:before, &:after {
+                opacity: 1;
+                transform: scale(1);
+                transition-delay: 300ms;
+            }
+        }
+
+        @include e('title') {
+            color: map_get($color, 'primary');
+
+            span {
+                transform: perspective(1000px) rotate3d(0, 1, 0, 360deg);
+
+                &:first-child {
+                    transition-delay: 0ms;
+                }
+
+                &:nth-child(2) {
+                    transition-delay: 100ms;
+                }
+
+                &:nth-child(3) {
+                    transition-delay: 200ms;
+                }
+
+
+                &:nth-child(4) {
+                    transition-delay: 300ms;
+                }
+
+                &:nth-child(5) {
+                    transition-delay: 400ms;
+                }
+            }
+        }
+
+        @include e('checked') {
+            opacity: 1;
+            visibility: visible;
+            transition: transform 300ms ease-out, opacity 400ms 0ms, visibility 0ms 0ms;
+            transform: translate(0, 0);
+        }
+
+        @include e('subtitle') {
+            background-size: 100% 1px;
+        }
+
+        @include b('b-btn-holder') {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: transform 300ms ease-out, opacity 300ms 0ms, visibility 0ms 300ms;
+            transform: translate(0, 15px);
+        }
+    }
+
+    @include e('inner') {
+        background: $white;
+        box-shadow: 0 11px 50px rgba(#000, 0.15);
+        display: block;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        transition: box-shadow 300ms $ease-in-out-cubic;
+
+        @include min(sm) {
+            height: 100%;
+        }
+
+        &:before, &:after {
+            border-radius: 3px;
+            bottom: -20px;
+            content: '';
+            left: -20px;
+            opacity: 0;
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            transition: {
+                property: opacity, transform;
+                delay: 0;
+                duration: 350ms;
+            };
+            z-index: 1;
+
+            @include max(xs) {
+                top: -5px;
+                right: -5px;
+                bottom: -5px;
+                left: -5px;
+            }
+        }
+
+        &:before {
+            border-bottom: 2px solid map_get($color, 'primary');
+            border-top: 2px solid map_get($color, 'primary');
+            transform: scale(0, 1);
+        }
+
+        &:after {
+            border-left: 2px solid map_get($color, 'primary');
+            border-right: 2px solid map_get($color, 'primary');
+            transform: scale(1, 0);
+        }
+    }
+
+    @include e('body') {
+        position: relative;
+        height: 100%;
+        z-index: 0;
+    }
+
+    @include e('title') {
+        color: map_get($color, 'secondary');
+        @extend %galano;
+        font-size: 40px;
+        transition: color 300ms $ease-in-out-cubic;
+
+        span {
+            position: relative;
+            display: inline-block;
+            transform: perspective(1000px) rotate3d(0, 1, 0, 0deg);
+            transition: transform 500ms;
+
+            &:first-child {
+                transition-delay: 500ms;
+            }
+
+            &:nth-child(2) {
+                transition-delay: 400ms;
+            }
+
+            &:nth-child(3) {
+                transition-delay: 300ms;
+            }
+
+
+            &:nth-child(4) {
+                transition-delay: 200ms;
+            }
+
+            &:nth-child(5) {
+                transition-delay: 100ms;
+            }
+        }
+    }
+
+    @include e('subtitle') {
+        //border-bottom: 1px solid #bcd1d7;
+        color: map_get($color, 'default');
+        font-size: 15px;
+        line-height: 24px;
+        padding-bottom: 16px;
+        margin-bottom: 22px;
+        transition: background 400ms $ease-in-out-cubic;
+
+        background: {
+            color: transparent;
+            image: linear-gradient(#bcd1d7, #bcd1d7);
+            position: center 100%;
+            size: 90% 1px;
+            repeat: no-repeat;
+        }
+    }
+
+    @include e('privileges') {
+        color: map_get($color, 'default');
+        font-size: 13px;
+        line-height: 1.54;
+        margin-bottom: 50px;
+
+        li {
+            position: relative;
+
+            &:before {
+                background: #a3bbbc;
+                border-radius: 50%;
+                @include size(4px);
+                left: 50%;
+                top: -8px;
+                margin-left: -2px;
+                content: '';
+                opacity: 0;
+                position: absolute;
+            }
+
+            & + li {
+                margin-top: 16px;
+
+                &:before {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    @include e('footer') {
+        position: relative;
+        margin-top: auto;
+    }
+
+    @include e(('price', 'description')) {
+        color: #87a6ad;
+    }
+
+    @include e('price') {
+        font-size: 30px;
+        line-height: 1;
+        margin-bottom: 6px;
+
+        @include m('primary') {
+            color: map_get($color, 'primary');
+        }
+    }
+
+    @include e('description') {
+        font-size: 18px;
+        line-height: 1.67;
+    }
+
+    @include e('checked') {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+        opacity: 0;
+        visibility: hidden;
+        color: map_get($color, 'primary');
+        @extend %galano;
+        font-size: 20px;
+        @include size(100% 60px);
+        margin-top: 40px;
+        line-height: 25px;
+        transition: transform 300ms ease-out, opacity 300ms 0ms, visibility 0ms 300ms;
+        transform: translate(0, 15px);
+
+        @include b('b-icon') {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 5px;
+            border: 3px solid map_get($color, 'primary');
+            border-radius: 50%;
+            @include size(28px);
+        }
+    }
+
+    @include first {
+        &:not(.is-active) {
+            z-index: auto;
+        }
+
+        @include e('inner') {
+            border-bottom-left-radius: 3px;
+            border-top-left-radius: 3px;
+        }
+    }
+
+    @include last {
+        &:not(.is-active) {
+            z-index: auto;
+        }
+
+        @include e('inner') {
+            border-bottom-right-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+    }
+
+    @include b('b-btn-holder') {
+        margin-top: 40px;
+        transition: transform 300ms ease-out, opacity 400ms 0ms, visibility 0ms 0ms;
+        transform: translate(0, 0);
+
+        @include e('btn') {
+            @include hover {
+                transform: scale(1.02);
+            }
+        }
+    }
+}

@@ -1,0 +1,31 @@
+//- Created by Labtec on 23.06.2017.
+
+mixin bottom_menu(data)
+    -
+        var data = _.assignIn({}, data, page.navbar, footer);
+        var menu = page.menu;
+
+    +e.bottom(
+        data-v-row='',
+        data-v-flex='dir:column',
+        data-v-flex-md='dir:row'
+    )
+        div(
+            data-v-col='xs:24',
+            data-v-flex='container align:justify'
+        )
+            +e.UL.menu(
+                data-v-flex='container'
+            )
+                each item in menu
+                    +e.item(class={ '_active': data.current === item.active })
+                        +link(href=(item.link || url))!= item.text
+            +e.copyright &copy;COPYRIGHT
+
+
+mixin footer(data)
+    +b.FOOTER.b-footer(data-v-row='', data-v-col='')
+        div(data-v-row='', data-v-flex='dir:column', data-v-flex-md='dir:row')
+
++b.b-footer(data-v-container='fixed')
+    +bottom_menu

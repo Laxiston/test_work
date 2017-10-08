@@ -1,0 +1,25 @@
+@mixin container(
+    $gutters: $grid-columns-gutter
+) {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+
+    @include each-breakpoint {
+        $padding: get-bp-val($gutters, $-zf-size) / 2;
+
+        padding-right: $padding;
+        padding-left: $padding;
+    }
+}
+
+// For each breakpoint, define the maximum width of the container in a media query
+@mixin container-max-widths(
+    $max-widths: $grid-container-max-widths
+) {
+    @include each-breakpoint {
+        $max-width: get-bp-val($max-widths, $-zf-size);
+
+        max-width: $max-width;
+    }
+}

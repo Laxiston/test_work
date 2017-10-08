@@ -1,0 +1,99 @@
+@include b('b-modal') {
+    display: none;
+    position: relative;
+    // Workaround android browser z-index bug
+    backface-visibility: hidden;
+    border: $reveal-border;
+    border-radius: $reveal-radius;
+    background-color: $reveal-background;
+    top: 100px;
+    margin-right: auto;
+    margin-left: auto;
+    overflow-y: auto;
+    z-index: $reveal-zindex + 1;
+    //@include disable-mouse-outline;
+    //@include reveal-modal-width($reveal-width);
+
+    // Make sure rows don't have a min-width on them
+    [#{$am}col] {
+        min-width: 0;
+    }
+
+    // Strip margins from the last item in the modal
+    @include last {
+        margin-bottom: 0;
+    }
+
+    @include e('content') {
+        display: flex;
+        flex-direction: column;
+        background-clip: padding-box;
+    }
+
+    @include e(('header', 'body', 'footer')) {
+        padding: $reveal-padding / 2;
+
+        @include min(md) {
+            padding: $reveal-padding / 2 $reveal-padding;
+        }
+    }
+
+    @include e(('header', 'footer')) {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+    }
+
+    @include e('header') {
+        position: relative;
+        justify-content: space-between;
+        border-bottom: 1px solid #eceeef;
+    }
+
+    @include e('body') {
+        position: relative;
+        overflow-y: auto;
+
+        @include min(md) {
+            overflow: hidden;
+        }
+    }
+
+    @include e('footer') {
+        justify-content: flex-end;
+        border-top: 1px solid #eceeef;
+
+        @include b('b-btn-holder') {
+            @include max(sm) {
+                width: 100%;
+            }
+        }
+    }
+
+    @include e('title') {
+        font-size: 18px;
+    }
+
+    @include e('close') {
+        position: absolute;
+        top: $reveal-padding / 4;
+        right: 0;
+        @include size(40px);
+        border: none;
+        background: none;
+        padding: 8px;
+        font-size: 24px;
+        color: #000;
+        cursor: pointer;
+        display: block;
+        transition: color 300ms $ease-in-out-cubic;
+
+        @include hover {
+            color: map_get($foundation-palette, primary);
+        }
+    }
+
+    @include min(md) {
+        min-height: 0;
+    }
+}
